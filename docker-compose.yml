@@ -1,0 +1,33 @@
+services:
+  maindb:
+    image: postgres:11.20-alpine
+    volumes: 
+      - /home/maxa/Desktop/OwnLabZabbix/server/postgres:/var/lib/postgresql/data
+    environment:
+    - POSTGRES_PASSWORD=qwe123
+  mainzabbix:
+    image: zabbix/zabbix-server-pgsql:5.4.9-ubuntu
+    links:
+    - maindb
+    depends_on:
+    - maindb
+    environment:
+    - DB_SERVER_HOST=maindb
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=qwe123
+  mainfront:
+    image: zabbix/zabbix-web-nginx-pgsql:5.4.9-ubuntu
+    links:
+    - maindb
+    - mainzabbix
+    depends_on:
+    - maindb
+    - mainzabbix
+    ports:
+    - 80:8080
+    environment:
+    - ZBX_SERVER_HOST=mainzabbix
+    - DB_SERVER_HOST=maindb
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=qwe123
+
