@@ -2,7 +2,7 @@ services:
   maindb:
     image: postgres:11.20-alpine
     volumes: 
-      - /home/maxa/Desktop/OwnLabZabbix/server/postgres:/var/lib/postgresql/data
+      - ~/postgres:/var/lib/postgresql/data
     environment:
     - POSTGRES_PASSWORD=qwe123
   mainzabbix:
