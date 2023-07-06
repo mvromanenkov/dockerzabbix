@@ -24,7 +24,7 @@ services:
     - maindb
     - mainzabbix
     ports:
-    - 80:8080
+    - 10.8.0.1:80:8080
     environment:
     - ZBX_SERVER_HOST=mainzabbix
     - DB_SERVER_HOST=maindb
